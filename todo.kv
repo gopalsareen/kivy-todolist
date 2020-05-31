@@ -1,0 +1,70 @@
+#:kivy 1.0.9
+
+
+BoxLayout:
+    orientation: 'vertical'
+    Menu:
+        size_hint_y: .1
+        manager: screen_manager
+    ScreenManagement:
+        size_hint_y: .9
+        id: screen_manager
+
+<Menu>:
+    orientation: "vertical"
+    ActionBar:
+        top: 0
+        ActionView:
+            ActionPrevious:
+            ActionButton:
+                text: 'Home'
+                on_press: root.manager.current = 'screen_home'
+
+            ActionButton:
+                text: 'Add New'
+                on_press: root.manager.current = 'screen_add'
+
+<AddNewForm>:
+    text_input: input
+    TextInput:
+        id: input
+        pos: root.center_x - 220, 300
+        size: 400,50
+    Button:
+        size: 130,40
+        pos: root.center_x - 100, 200
+        text: 'Submit'
+        on_release: root.submit_input()
+
+
+<ScreenManagement>:
+    id: screen_manager
+
+    HomeScreen:
+        name: 'screen_home'
+        manager: 'screen_manager'
+
+    AddScreen:
+        name: 'screen_add'
+        manager: 'screen_manager'
+
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        MyRecycleView:
+
+<MyRecycleView>:
+    viewclass: 'Label'
+    RecycleBoxLayout:
+        color: 1,1,1,1
+        default_size: None, dp(56)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+<AddScreen>:
+    BoxLayout:
+        Label:
+            text: "Add to list"
